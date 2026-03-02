@@ -23,7 +23,17 @@ public class MumbleController {
         return mumbleRepository.save(user);
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id) {
 
+        if (!mumbleRepository.existsById(id)) {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+
+        mumbleRepository.deleteById(id);
+
+        return "User deleted successfully with id: " + id;
+    }
 
     @GetMapping
     public List<MumbleModel> getAllUsers() {
