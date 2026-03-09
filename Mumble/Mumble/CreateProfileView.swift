@@ -1,11 +1,5 @@
 import SwiftUI
 
-struct User: Codable, Identifiable, Hashable {
-    let id: Int?
-    let name: String
-    let interests: String
-}
-
 struct CreateProfileView: View {
     
     @State private var name = ""
@@ -17,7 +11,6 @@ struct CreateProfileView: View {
     var body: some View {
         ZStack {
             
-            // Background Gradient
             LinearGradient(
                 colors: [Color.pink.opacity(0.6), Color.purple.opacity(0.6)],
                 startPoint: .topLeading,
@@ -36,26 +29,29 @@ struct CreateProfileView: View {
                         .bold()
                         .foregroundColor(.white)
                     
-                    // Card Container
                     VStack(spacing: 20) {
                         
                         HStack {
                             Image(systemName: "person.fill")
                                 .foregroundColor(.pink)
+                            
                             TextField("Your Name", text: $name)
                         }
                         .padding()
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(12)
                         
-                        HStack {
-                            Image(systemName: "heart.fill")
+                        VStack(alignment: .leading) {
+                            
+                            Label("Your Interests", systemImage: "heart.fill")
                                 .foregroundColor(.pink)
-                            TextField("Interests (Music, Travel)", text: $interests)
+                            
+                            TextEditor(text: $interests)
+                                .frame(height: 120)
+                                .padding(8)
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(12)
                         }
-                        .padding()
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(12)
                         
                         Button(action: {
                             createUser()
@@ -73,21 +69,19 @@ struct CreateProfileView: View {
                                 )
                                 .foregroundColor(.white)
                                 .cornerRadius(14)
-                                .shadow(color: .pink.opacity(0.4), radius: 10, x: 0, y: 5)
+                                .shadow(radius: 10)
                         }
                         
                         if !message.isEmpty {
                             Text(message)
                                 .fontWeight(.medium)
                                 .foregroundColor(.green)
-                                .padding(.top, 5)
                         }
                     }
                     .padding(25)
                     .background(Color.white)
                     .cornerRadius(25)
                     .shadow(radius: 20)
-                    
                 }
                 
                 Spacer()

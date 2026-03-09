@@ -10,7 +10,9 @@ public class MumbleModel {
     private Long id;
 
     private String name;
-    private String interests;
+
+    @Column(length = 1000)
+    private String interests;   // sentence or paragraph
 
     public Long getId() {
         return id;
